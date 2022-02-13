@@ -1,40 +1,5 @@
 import MeetupList from '../components/meetups/MeetupList';
 
-const DUMMY_DATA = [
-  {
-    id: '1',
-    title: 'First One',
-    addres: 'SomeAddres 1',
-    description: 'Molestias eum ex facere aut qui iste incidunt id.',
-    image:
-      'https://images.unsplash.com/photo-1597202496047-8af47ddf05da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-  },
-  {
-    id: '2',
-    title: 'Second',
-    addres: 'SomeAddres 1',
-    description: 'Reiciendis debitis est vel.',
-    image:
-      'https://images.unsplash.com/photo-1539206891013-5282a607b334?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=775&q=80',
-  },
-  {
-    id: '3',
-    title: 'Third',
-    addres: 'SomeAddres 1',
-    description: 'Nisi velit dolores atque perspiciatis.',
-    image:
-      'https://images.unsplash.com/photo-1518355667532-04b0b8a44cab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
-  },
-  {
-    id: '4',
-    title: 'Fourth',
-    addres: 'SomeAddres 1',
-    description: 'Eum rerum excepturi.',
-    image:
-      'https://images.unsplash.com/photo-1571670954858-176b0731cda5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-  },
-];
-
 const HomePage = (props) => {
   return <MeetupList meetups={props.meetups} />;
 };
@@ -42,9 +7,18 @@ const HomePage = (props) => {
 //static page prerender
 
 export async function getStaticProps() {
+  const meetups = await fetch('http://localhost:4000/meetups', {
+    method: 'GET',
+  });
+  console.log(meetups);
   return {
     props: {
-      meetups: DUMMY_DATA,
+      // meetups: meetups.map((meetup) => ({
+      //   id: meetup.id,
+      //   title: meetup.title,
+      //   description: meetup.description,
+      //   img: meetup.img,
+      // })),
     },
     revalidate: 10,
   };
